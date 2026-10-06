@@ -1,7 +1,14 @@
 ![Programação-Arquitetura Java](https://github.com/jacqueline-oliveira/3698-java-clean-architecture/assets/66698429/0191ea20-432f-4583-a391-f01558004fb9)
-![](https://img.shields.io/github/license/alura-cursos/android-com-kotlin-personalizando-ui)
 
 # codechella-clean-architecture
+
+## About (English)
+
+**CodeChella** is an event ticket-sales simulation built with **Java 17** and **Spring Boot 3.2.2**, applying **Clean Architecture** principles: entities, value objects, use cases, and gateway ports form a domain layer fully isolated from frameworks and infrastructure. Persistence runs on PostgreSQL via Docker Compose, and unit tests cover the business rules.
+
+> Study project developed as part of an [Alura](https://www.alura.com.br/) course; the original walkthrough below is in Portuguese.
+
+---
 
 O **CodeChella** é um sistema de simulação de venda de ingressos para eventos, desenvolvido em **Java 17** com **Spring Boot 3.2.2** utilizando os princípios da **Clean Architecture** (Arquitetura Limpa). O objetivo principal é isolar a lógica de domínio das tecnologias externas (banco de dados, frameworks Web), facilitando a manutenção e a testabilidade.
 
@@ -24,24 +31,24 @@ A aplicação está estruturada nas seguintes camadas:
 1. **Domain (Domínio)**:
    - Contém as regras de negócio puras e as entidades fundamentais da aplicação.
    - Não depende de nenhuma biblioteca ou framework externo.
-   - [`User`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/domain/entities/user/User.java): Entidade de domínio que valida regras como formato de CPF e idade mínima (maior de 18 anos).
-   - [`Address`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/domain/Address.java): Objeto de valor que representa o endereço do usuário.
-   - [`UserFactory`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/domain/entities/user/UserFactory.java): Fábrica para criação facilitada e encapsulada de usuários.
+   - [`User`](src/main/java/br/com/alura/codechella/domain/entities/user/User.java): Entidade de domínio que valida regras como formato de CPF e idade mínima (maior de 18 anos).
+   - [`Address`](src/main/java/br/com/alura/codechella/domain/Address.java): Objeto de valor que representa o endereço do usuário.
+   - [`UserFactory`](src/main/java/br/com/alura/codechella/domain/entities/user/UserFactory.java): Fábrica para criação facilitada e encapsulada de usuários.
 
 2. **Application (Aplicação)**:
    - Contém os Casos de Uso que orquestram o fluxo de dados.
    - Define os contratos/gateways de comunicação com o mundo externo.
-   - [`UserRegister`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/application/usecases/UserRegister.java): Caso de uso para cadastrar novos usuários.
-   - [`UserUpdate`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/application/usecases/UserUpdate.java): Caso de uso para atualizar informações dos usuários.
-   - [`UsersList`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/application/usecases/UsersList.java): Caso de uso para listar todos os usuários cadastrados.
-   - [`UserRepository`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/application/gateways/UserRepository.java): Interface port/gateway para operações de persistência.
+   - [`UserRegister`](src/main/java/br/com/alura/codechella/application/usecases/UserRegister.java): Caso de uso para cadastrar novos usuários.
+   - [`UserUpdate`](src/main/java/br/com/alura/codechella/application/usecases/UserUpdate.java): Caso de uso para atualizar informações dos usuários.
+   - [`UsersList`](src/main/java/br/com/alura/codechella/application/usecases/UsersList.java): Caso de uso para listar todos os usuários cadastrados.
+   - [`UserRepository`](src/main/java/br/com/alura/codechella/application/gateways/UserRepository.java): Interface port/gateway para operações de persistência.
 
 3. **Infrastructure (Infraestrutura)**:
    - Implementa os detalhes de infraestrutura, incluindo controladores HTTP, persistência em banco de dados relacional e mapeadores de entidade.
-   - [`UserController`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/infrastructure/controller/UserController.java): Controladora REST do Spring que expõe os endpoints HTTP.
-   - [`UserJpaRepositoryAdapter`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/infrastructure/gateways/UserJpaRepositoryAdapter.java): Adaptador que implementa [`UserRepository`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/application/gateways/UserRepository.java) utilizando o Spring Data JPA.
-   - [`UserEntity`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/infrastructure/persistance/UserEntity.java) & [`UserJpaRepository`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/infrastructure/persistance/UserJpaRepository.java): Modelagem relacional para persistência com PostgreSQL.
-   - [`UserEntityMapper`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/infrastructure/mappers/UserEntityMapper.java) & [`UserDtoMapper`](file:///home/bernardocamargo/dev/codechella/src/main/java/br/com/alura/codechella/infrastructure/controller/UserDtoMapper.java): Mappers para conversão de DTOs e entidades de banco de dados para o Domínio.
+   - [`UserController`](src/main/java/br/com/alura/codechella/infrastructure/controller/UserController.java): Controladora REST do Spring que expõe os endpoints HTTP.
+   - [`UserJpaRepositoryAdapter`](src/main/java/br/com/alura/codechella/infrastructure/gateways/UserJpaRepositoryAdapter.java): Adaptador que implementa [`UserRepository`](src/main/java/br/com/alura/codechella/application/gateways/UserRepository.java) utilizando o Spring Data JPA.
+   - [`UserEntity`](src/main/java/br/com/alura/codechella/infrastructure/persistance/UserEntity.java) & [`UserJpaRepository`](src/main/java/br/com/alura/codechella/infrastructure/persistance/UserJpaRepository.java): Modelagem relacional para persistência com PostgreSQL.
+   - [`UserEntityMapper`](src/main/java/br/com/alura/codechella/infrastructure/mappers/UserEntityMapper.java) & [`UserDtoMapper`](src/main/java/br/com/alura/codechella/infrastructure/controller/UserDtoMapper.java): Mappers para conversão de DTOs e entidades de banco de dados para o Domínio.
 
 ---
 
@@ -68,10 +75,10 @@ Para subir a instância do PostgreSQL configurada no projeto, execute:
 docker compose up -d
 ```
 > [!NOTE]
-> As credenciais padrão do banco estão configuradas no [`docker-compose.yml`](file:///home/bernardocamargo/dev/codechella/docker-compose.yml).
+> As credenciais padrão do banco estão configuradas no [`docker-compose.yml`](docker-compose.yml).
 
 ### 3. Configurar Variáveis de Ambiente
-A aplicação espera as seguintes variáveis para se conectar ao banco de dados (conforme o [`application.properties`](file:///home/bernardocamargo/dev/codechella/src/main/resources/application.properties)):
+A aplicação espera as seguintes variáveis para se conectar ao banco de dados (conforme o [`application.properties`](src/main/resources/application.properties)):
 - `DB_HOST`: Host do banco (ex: `localhost:5432`)
 - `DB_USER`: Usuário do banco (ex: `admin`)
 - `DB_PASSWORD`: Senha do banco (ex: `admin`)
@@ -120,4 +127,4 @@ Para rodar os testes da aplicação:
 ./mvnw test
 ```
 > [!TIP]
-> Os testes unitários das regras de validação do domínio podem ser encontrados em [`UserEntityTest.java`](file:///home/bernardocamargo/dev/codechella/src/test/java/br/com/alura/codechella/domain/entities/user/UserEntityTest.java).
+> Os testes unitários das regras de validação do domínio podem ser encontrados em [`UserEntityTest.java`](src/test/java/br/com/alura/codechella/domain/entities/user/UserEntityTest.java).
